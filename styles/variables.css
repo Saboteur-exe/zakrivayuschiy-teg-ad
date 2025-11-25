@@ -1,1 +1,24 @@
-/* В этом файле будут храниться все значения переменных в исходном состоянии, а так же их изменения в зависимости от ширины устройства */
+:root {
+  --accent-color: #000;
+  --background-color: #fff;
+  --button-hover-text: #fff;
+  
+  --contour-color: #000;
+  --heart-fill-color: #ff0000;
+  
+  --gradient-line-color: #d3d3d3;
+  --gradient-start: #e7e7e7;
+  --gradient-end: #1a1a1a;
+
+  --main-font: 'Inter-Variation', sans-serif;
+  --accent-font: 'PressStart2P', fantasy;
+
+  --header-font-size: clamp(3.0625rem, 2.7104rem + 1.5023vw, 4.0625rem);
+  --text-font-size: clamp(0.875rem, 0.6769rem + 0.8451vw, 1.4375rem);
+  
+  --title-font-weight: 700;
+  --text-font-weight: 400;
+
+  --section-gap: clamp(2rem, 5vw, 4rem);
+  --adaptive-gap: 25px;
+}

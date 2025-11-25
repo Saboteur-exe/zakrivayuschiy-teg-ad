@@ -1,16 +1,434 @@
-/* Здесь вы напишете основную часть стилей страницы.
-
-Будьте внимательны! Для корректной работы скриптов на этом сайте нужно, чтобы в HTML некоторые классы были названы особым образом:
-✦ like-icon — для svg-иконки анимированного сердца
-✦ card__like-button — для кнопки Like рядом с иконкой
-✦ card__icon-button — для кнопки, оборачивающей иконку
-✦ card__icon-button — для кнопки, оборачивающей иконку
-✦ is-liked — для обозначения состояния лайкнутой иконки в виде сердца
-✦ button__text — для обозначения текстового элемента внутри кнопки
-
-*/
-
 .page {
   min-inline-size: 320px;
   min-block-size: 100dvb;
+  font-family: var(--main-font);
+  font-weight: var(--text-font-weight);
+  color: var(--accent-color);
+  background-color: var(--background-color);
+  background-image: 
+    repeating-linear-gradient(
+      90deg,
+      var(--gradient-line-color) 0 2px,
+      transparent 2px 4px
+    ),
+    repeating-linear-gradient(
+      180deg,
+      var(--gradient-line-color) 0 2px,
+      transparent 2px 4px
+    ),
+    linear-gradient(
+      180deg,
+      var(--gradient-start) 0.01%,
+      var(--gradient-end) 100%
+    );
+  background-size: cover;
+  background-attachment: fixed;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-block: 100px;
+}
+
+.main {
+  inline-size: 100%;
+  max-inline-size: clamp(23.4375rem, 16.2852rem + 30.5164vw, 43.75rem);
+}
+
+.header {
+  inline-size: clamp(23.4375rem, 16.2852rem + 30.5164vw, 43.75rem);
+  padding: 25px;
+  background-color: var(--background-color);
+  border: 2px solid var(--accent-color);
+  margin-block-end: var(--section-gap);
+}
+
+.header__logo {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+}
+
+.header__title {
+  font-family: var(--accent-font);
+  font-size: clamp(0.875rem, 0.6769rem + 0.8451vw, 1.4375rem);
+  font-weight: 400;
+  text-transform: uppercase;
+  text-align: center;
+}
+
+.header__code {
+  font-family: var(--accent-font);
+  font-size: var(--header-font-size);
+  font-weight: 400;
+  text-transform: uppercase;
+  line-height: 1;
+}
+
+.cards {
+  display: flex;
+  flex-direction: column;
+  gap: 50px;
+}
+
+.card {
+  background-color: var(--background-color);
+  border: 2px solid var(--accent-color);
+}
+
+.card__title {
+  font-family: var(--main-font);
+  font-size: 18px;
+  font-weight: var(--title-font-weight);
+  padding: 5px 10px;
+  border-block-end: 2px solid var(--accent-color);
+  line-height: 1.22;
+}
+
+.card__image-container {
+  position: relative;
+  border-block-end: 2px solid var(--accent-color);
+}
+
+.card__image {
+  display: block;
+  inline-size: 100%;
+  block-size: auto;
+  aspect-ratio: 1 / 1;
+  object-fit: cover;
+  object-position: center;
+}
+
+.card__watermark {
+  position: absolute;
+  top: 25px;
+  right: 25px;
+  font-family: var(--accent-font);
+  font-size: 14px;
+  font-weight: 400;
+  opacity: 0.5;
+  text-transform: uppercase;
+  mix-blend-mode: hard-light;
+  text-shadow: 
+    -1px 0 var(--background-color),
+    0 1px var(--background-color),
+    1px 0 var(--background-color),
+    0 -1px var(--background-color);
+}
+
+.card__content {
+  padding: var(--adaptive-gap, 25px);
+  display: flex;
+  flex-direction: column;
+  gap: 27px;
+}
+
+.card__text {
+  font-family: var(--main-font);
+  font-size: 18px;
+  line-height: 1.17;
+}
+
+.card__text_type_placeholder {
+  color: var(--accent-color);
+}
+
+.card__footer {
+  padding: 0 25px 25px;
+  display: flex;
+  justify-content: end;
+  align-items: center;
+  gap: 4px;
+}
+
+.card__icon-button {
+  border: 2px solid transparent;
+  padding: 0;
+  inline-size: 39px;
+  block-size: 36px;
+  background-color: transparent;
+  cursor: pointer;
+  transition: border-color 0.3s ease;
+}
+
+.card__icon-button:focus {
+  outline: none;
+}
+
+.card__icon-button:focus-visible {
+  border-color: var(--accent-color);
+}
+
+.card__icon-button:hover .like-icon .contour {
+  transition: fill 0.3s linear;
+}
+
+.card__like-button {
+  border: 2px solid var(--accent-color);
+  padding: 9px 17px;
+  min-inline-size: 130px;
+  block-size: 38px;
+  background-color: var(--background-color);
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+  transition: box-shadow 0.3s ease;
+}
+
+.card__like-button:focus {
+  outline: none;
+}
+
+.card__like-button:focus-visible {
+  box-shadow: 2px 2px 0 var(--accent-color);
+}
+
+.card__like-button::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  inline-size: 0%;
+  block-size: 100%;
+  background-color: var(--accent-color);
+  transition: inline-size 0.5s ease-in-out;
+}
+
+.card__like-button:hover::before {
+  inline-size: 100%;
+}
+
+.card__like-button:active::before {
+  inline-size: 100%;
+  transition: inline-size 0.3s ease-in-out;
+}
+
+.button__text {
+  font-family: var(--accent-font);
+  font-size: 14px;
+  line-height: 0.9;
+  position: relative;
+  z-index: 1;
+  color: #fff;
+  mix-blend-mode: difference;
+}
+
+.like-icon {
+  inline-size: 39px;
+  block-size: 36px;
+  cursor: pointer;
+}
+
+.like-icon .contour {
+  fill: var(--contour-color);
+  transition: fill 0.1s linear;
+}
+
+.like-icon .main-body {
+  fill: var(--background-color);
+  transition: fill 0.3s linear;
+}
+
+.like-icon .core {
+  fill: var(--background-color);
+  transition: fill 0.3s linear 0.03s;
+}
+
+.like-icon .sparks {
+  fill: var(--heart-fill-color);
+  opacity: 0;
+}
+
+.like-icon:hover .main-body {
+  fill: var(--accent-color);
+  transition: fill 0.3s linear 0.05s;
+}
+
+.like-icon:hover .core {
+  fill: var(--accent-color);
+  transition: fill 0.3s linear;
+}
+
+.like-icon:active .main-body {
+  fill: var(--heart-fill-color);
+  transition: fill 0.3s linear 0.05s;
+}
+
+.like-icon:active .core {
+  fill: var(--heart-fill-color);
+  transition: fill 0.3s linear;
+}
+
+.like-icon.is-liked .contour {
+  fill: var(--heart-fill-color);
+  transition: fill 0.3s linear 0.06s;
+}
+
+.like-icon.is-liked .main-body {
+  fill: var(--heart-fill-color);
+  transition: fill 0.3s linear 0.05s;
+}
+
+.like-icon.is-liked .core {
+  fill: var(--heart-fill-color);
+  transition: fill 0.3s linear;
+}
+
+.footer {
+  inline-size: 100%;
+  max-inline-size: clamp(23.4375rem, 16.2852rem + 30.5164vw, 43.75rem);
+  padding-block-start: 50px;
+  display: flex;
+  justify-content: center;
+}
+
+.footer__button {
+  inline-size: clamp(19.125rem, 18.4868rem + 2.723vw, 20.9375rem);
+  block-size: 55px;
+  padding: 15px 20px;
+  background-color: var(--background-color);
+  border: 2px solid var(--accent-color);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+  transition: box-shadow 0.3s ease;
+}
+
+.footer__button:focus {
+  outline: none;
+}
+
+.footer__button:focus-visible {
+  box-shadow: 2px 2px 0 var(--accent-color);
+}
+
+.footer__button::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  inline-size: 0%;
+  block-size: 100%;
+  background-color: var(--accent-color);
+  transition: inline-size 0.5s ease-in-out;
+}
+
+.footer__button:hover::before {
+  inline-size: 100%;
+}
+
+.button__icon {
+  inline-size: 21px;
+  block-size: 21px;
+  position: relative;
+  z-index: 1;
+  mix-blend-mode: difference;
+}
+
+.button__icon .floppy-body {
+  fill: var(--accent-color);
+}
+
+.footer__button .button__text {
+  font-family: var(--accent-font);
+  font-size: 14px;
+  line-height: 0.9;
+}
+
+.dialog {
+  background-color: var(--background-color);
+  border: 2px solid var(--accent-color);
+  padding: 30px;
+  position: fixed;
+  inset: 0;
+  max-width: 350px;
+  width: 100%;
+  color: var(--accent-color);
+  font-family: var(--accent-font);
+  text-transform: uppercase;
+}
+
+.dialog[open] {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 30px;
+}
+
+.dialog::backdrop {
+  background-color: rgba(0, 0, 0, 0.75);
+}
+
+.dialog__content {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  width: 100%;
+}
+
+.dialog__icon {
+  width: 39px;
+  height: 39px;
+  flex-shrink: 0;
+}
+
+.dialog__text {
+  font-family: var(--accent-font);
+  font-size: 14px;
+  line-height: 1.5;
+  text-transform: uppercase;
+  flex: 1;
+}
+
+.dialog__form {
+  width: 100%;
+}
+
+.dialog__close-button {
+  width: 100%;
+  text-transform: uppercase;
+  padding: 15px 20px; 
+  background-color: #ffffff; 
+  border: 2px solid var(--accent-color);
+  position: relative;
+  cursor: pointer;
+}
+
+@media (width <= 375px) {
+  .page {
+    padding-block: 100px 0;
+  }
+
+  .header {
+    inline-size: 100%;
+    padding: 120px 0 25px;
+  }
+
+  .main {
+    inline-size: 100%;
+  }
+
+  .card__watermark {
+    top: 23px;
+    right: 11px;
+  }
+
+  .footer {
+    padding-block-start: 50px;
+    padding-block-end: 100px;
+  }
+
+  .footer__button {
+    inline-size: calc(100% - 40px);
+    flex-direction: column;
+  }
+
+  .button__icon {
+    inline-size: 28px;
+    block-size: 28px;
+  }
 }
